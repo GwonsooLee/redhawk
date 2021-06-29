@@ -26,6 +26,7 @@ import (
 // GetAwsSession creates new session for AWS
 func GetAwsSession(region string) aws.Config {
 	var optFunc config.LoadOptionsFunc
+
 	if len(region) > 0 {
 		optFunc = config.WithRegion(region)
 	}

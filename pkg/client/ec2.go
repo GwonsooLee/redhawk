@@ -192,22 +192,3 @@ func GetEC2ClientFn(cfg aws.Config) *ec2.Client {
 	return ec2.NewFromConfig(cfg)
 }
 
-// GetAllRegions will returns all regions
-func GetAllRegions() ([]string, error) {
-	logrus.Debug("Retrieve all regions in the AWS provider")
-	svc := ec2.NewFromConfig(GetAwsSession(constants.EmptyString))
-
-	input := &ec2.DescribeRegionsInput{}
-
-	result, err := svc.DescribeRegions(context.TODO(), input)
-	if err != nil {
-		return nil, err
-	}
-
-	var regions []string
-	for _, region := range result.Regions {
-		regions = append(regions, *region.RegionName)
-	}
-
-	return regions, nil
-}
